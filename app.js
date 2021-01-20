@@ -1,3 +1,30 @@
+// unpack function - index 1 name, 2 metadata, 3 sample?
+function unpack(rows, index) {
+  return rows.map(function(row) {
+    return row[index];
+  });
+}
+
+// Add event listener for submit button
+d3.select("#submit").on("click", handleSubmit);
+
+// Submit Button handler
+function handleSubmit() {
+  // Prevent the page from refreshing
+  d3.event.preventDefault();
+
+  // Select the input value from the form
+  // Q: What does `.node()` do?
+  var names = d3.select("#WHATGOESHERE?").node().value;
+  console.log(names);
+
+  // clear the input value
+  d3.select("#stockInput").node().value = "";
+
+  // Update the Dashboard!
+  updateDash(stock);
+}
+
 // Use d3.json() to fetch data from JSON file
 // Incoming data is internally referred to as incomingData
 d3.json("data/samples.json").then((importedData) => {
@@ -5,13 +32,37 @@ d3.json("data/samples.json").then((importedData) => {
   var data = importedData;
 };
 
-// 1.Initialize the page with a default plot
+// //compare function
 
-// Call updatePlotly() when a change takes place to the DOM.
+data.sort(function(firstNum, secondNum) {
+   return firstNum - secondNum;
+ })
+ console.log(numArray);
+
+// error function
+function errorFunc(err) {
+  console.log(err);
+}
+
+// success function
+function successSort(data) {
+  // data.results is the array of characters
+  data.results.sort(function(firstChar, secondChar) {
+    return firstChar.height - secondChar.height;
+  })
+  console.log(data.results);
+}
+
+d3.json(url).then(successSort, errorFunc);
+
+
+// // 1.Initialize the page with a default plot
+
+// // Call updatePlotly() when a change takes place to the DOM.
 
 d3.selectAll("#selDataset").on("change", updatePlotly);
 
-// This function is called when a dropdown menu item is selected.
+// // This function is called when a dropdown menu item is selected.
 
 function updatePlotly() {
   // Use D3 to select the dropdown menu
@@ -22,18 +73,42 @@ function updatePlotly() {
 
 }
 
-
-
-// unpack names, metadata and sample?
-// select dropdown menu and have the 'names' be options to choose in the drop down
+// how to I select dropdown menu and have the 'names' be options to choose in the drop down?
 
 
 //console.log(data)
 
+sample_values = []
 
-// var otu_ids = function.unpack(lables)
-//   samples.otu_lables
-// sample_values = []
+otu_ids = []
+
+otu_lables = []
+
+// create compare function to get the top 10 - reverse function?
+
+// // Bar Chart Code
+
+  // Create trace.
+  var trace = {
+    x: sample_values,
+    y: otu_ids,
+    orientation: 'h',
+    type: "bar"
+  };
+
+  // Create the data array for our plot
+  var data = [trace];
+
+  // Define the plot layout
+  var layout = {
+    title: "The highest critically acclaimed movies.",
+    xaxis: { title: "Title" },
+    yaxis: { title: "Metascore (Critic) Rating"}
+  };
+
+  // Plot the chart to a div tag with id "bar-plot"
+  Plotly.newPlot("bar-plot", data, layout);
+});
 
 
 
