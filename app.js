@@ -1,25 +1,3 @@
-// Add event listener for submit button
-//d3.select("#submit").on("click", handleSubmit);
-
-// // Submit Button handler
-// function handleSubmit() {
-//   // Prevent the page from refreshing
-//   d3.event.preventDefault();
-
-//   // Select the input value from the form
-//   // Q: What does `.node()` do?
-//   var names = d3.select("#WHATGOESHERE?").node().value;
-//   console.log(names);
-
-//   // clear the input value
-//   d3.select("#selDataset").node().value = "";
-
-//   // Update the Dashboard!
-//   updateDash(names);
-//}
-
-// Use d3.json() to fetch data from JSON file
-// Incoming data is internally referred to as incomingData
 d3.json("data/samples.json").then((importedData) => {
   console.log(importedData)
   var dropDown = d3.selectAll("#selDataset")
@@ -31,7 +9,6 @@ d3.json("data/samples.json").then((importedData) => {
   var data = importedData;
 });
 
-// This function is called when a dropdown menu item is selected.
 function optionChanged(id){
   console.log(id)
   updatePlotly(id)
@@ -46,9 +23,8 @@ function updatePlotly(id) {
     var chartData = importedData.samples.filter(sample=> sample.id = id)[0]
     console.log(chartData)
 
-  // Bar Chart Code
+// Bar Chart Code
 
-  // Create trace.
   var trace1 = {
     x: chartData.sample_values.slice(0,10),
     y: chartData.otu_ids.slice(0,10).map(otu => "OTU " + otu),
@@ -57,23 +33,18 @@ function updatePlotly(id) {
     type: "bar"
   };
 
-
-  // Create the data array for our plot
   var data = [trace1];
 
   console.log(data)
 
-  // Define the plot layout
   var layout = {
     title: "Top 10 Bacteria Cultures"
   };
 
-  // Plot the chart to a div tag with id "bar-plot"
   Plotly.newPlot("bar", data, layout);
 
 
-// // Bubble Chart Code
-// // https://plotly.com/javascript/bubble-charts/
+  // // Bubble Chart Code
 
 var trace2 = {
     x: chartData.otu_ids,
