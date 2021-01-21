@@ -32,7 +32,10 @@ d3.json("data/samples.json").then((importedData) => {
   var data = importedData;
 };
 
-// //compare function
+// Demographic info (id, ethnicity, gender, age, location, bbtype, wfreq)
+// Update Demographic info with Test Subject ID No Dropdown Update
+
+// //compare function to display top 10
 
 data.sort(function(firstNum, secondNum) {
    return firstNum - secondNum;
@@ -89,21 +92,20 @@ otu_lables = []
 // // Bar Chart Code
 
   // Create trace.
-  var trace = {
-    x: sample_values,
+  var trace1 = {
+    values: sample_values,
     y: otu_ids,
     orientation: 'h',
+    text: otu_lables
     type: "bar"
   };
 
   // Create the data array for our plot
-  var data = [trace];
+  var data = [trace1];
 
   // Define the plot layout
   var layout = {
-    title: "The highest critically acclaimed movies.",
-    xaxis: { title: "Title" },
-    yaxis: { title: "Metascore (Critic) Rating"}
+    yaxis: { otu_ids }
   };
 
   // Plot the chart to a div tag with id "bar-plot"
@@ -115,7 +117,7 @@ otu_lables = []
 // // Bubble Chart Code
 // // https://plotly.com/javascript/bubble-charts/
 
-// var trace1 = {
+// var trace2 = {
 //     x: otu_ids,
 //     y: sample_values,
 //     mode: 'markers',
@@ -126,7 +128,7 @@ otu_lables = []
 //     }
 //   };
   
-//   var data = [trace1];
+//   var data2 = [trace2];
   
 //   var layout = {
 //     title: 'Marker Size and Color',
@@ -135,5 +137,5 @@ otu_lables = []
 //     width: 600
 //   };
   
-//   Plotly.newPlot('plot', data, layout);
+//   Plotly.newPlot('plot', data2, layout);
 
